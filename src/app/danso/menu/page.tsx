@@ -3,7 +3,7 @@ import Link from "next/link";
 const MENU_CATEGORIES = [
   {
     category: "소고기",
-    note: "전 부위 1++ 등급 한우",
+    note: "전 부위 1++(9) 특상한우",
     items: [
       { name: "등심", desc: "풍부한 마블링이 살아있는 단소상회의 시그니처", unit: "100g" },
       { name: "채끝", desc: "부드러운 결, 담백하고 깔끔한 맛", unit: "100g" },
@@ -48,7 +48,7 @@ export default function MenuPage() {
             단소상회 메뉴
           </p>
           <p className="font-sans text-[10px] text-gold/50 tracking-widest">
-            1++ 등급 한우 전문점
+            1++(9) 특상한우 전문점
           </p>
         </div>
       </div>

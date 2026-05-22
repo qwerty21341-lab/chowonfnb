@@ -147,7 +147,7 @@ function HeroSection() {
           단소상회
         </h1>
         <p className="font-sans text-sm text-cream/50 tracking-widest">
-          1<span className="text-gold font-bold">++</span> 등급 한우 · 참숯 직화구이
+          1<span className="text-gold font-bold">++(9)</span> 특상한우 · 참숯 직화구이
         </p>
       </div>
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
@@ -175,7 +175,7 @@ function AboutSection() {
         </p>
         <p className="font-sans text-[15px] leading-8 text-cream/65 mt-4">
           등급은 숫자가 아니라 신념입니다.
-          단소상회는 1++ 이하는 취급하지 않습니다.
+          단소상회는 1++(9) 특상한우 이하는 취급하지 않습니다.
         </p>
         <div className="mt-10 pt-8 border-t border-gold/15">
           <p className="font-serif text-xl text-gold/60 tracking-wider">— 사장님</p>
@@ -197,12 +197,12 @@ function StorySection() {
         <div className="space-y-10">
           <div className="border-l-2 border-gold/40 pl-6">
             <h3 className="font-serif text-xl font-bold text-gold mb-3">
-              1++ 등급의 의미
+              1++(9) 특상한우의 의미
             </h3>
             <p className="font-sans text-sm leading-7 text-cream/55">
-              한우 등급체계에서 1++는 최고 등급입니다.
+              한우 등급체계에서 1++(9) 특상한우는 최고 등급입니다.
               근내지방도 8~9번만 받을 수 있는 등급.
-              단소상회는 이 등급의 한우만 취급합니다.
+              단소상회는 이 등급만 취급합니다.
             </p>
           </div>
           <div className="border-l-2 border-ember/40 pl-6">
@@ -211,7 +211,7 @@ function StorySection() {
             </h3>
             <p className="font-sans text-sm leading-7 text-cream/55">
               가스불이 아닌 참숯. 800도까지 오르는 직화 열기가
-              1++ 한우의 마블링을 제대로 녹여냅니다.
+              1++(9) 특상한우의 마블링을 제대로 녹여냅니다.
               그 온도에서만 나오는 맛이 있습니다.
             </p>
           </div>
@@ -240,7 +240,7 @@ function MenuSection() {
           사장님이 추천하는 메뉴
         </h2>
         <p className="font-sans text-xs text-cream/40 mb-8 tracking-wide">
-          모든 메뉴는 1++ 등급 한우입니다
+          모든 메뉴는 1++(9) 특상한우입니다
         </p>
         <div className="space-y-0">
           {FEATURED_MENU.map((item) => (

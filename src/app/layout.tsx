@@ -17,8 +17,8 @@ const sansKR = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: "단소상회 — 포항 이동 1++ 한우 참숯구이",
-  description: "포항 유일 1++ 등급 한우만 취급. 참숯 직화구이 전문점 단소상회.",
+  title: "단소상회 — 포항 이동 1++(9) 특상한우 참숯구이",
+  description: "포항 유일 1++(9) 특상한우만 취급. 참숯 직화구이 전문점 단소상회.",
 };
 
 export default function RootLayout({
