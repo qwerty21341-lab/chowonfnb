@@ -38,12 +38,9 @@ export default function InfoPage() {
         <div className="space-y-6 font-sans text-sm border-t border-gold/10 pt-8">
           <div className="flex gap-5">
             <span className="text-gold/55 w-14 shrink-0 pt-0.5 tracking-wide">주소</span>
-            <div className="text-cream/65 leading-6">
-              <p>경상북도 포항시 남구 이동</p>
-              <p className="text-cream/35 text-xs mt-1">
-                (정확한 주소는 전화 문의)
-              </p>
-            </div>
+            <span className="text-cream/65 leading-6">
+              경상북도 포항시 남구 대이로 159번길 12-8
+            </span>
           </div>
 
           <div className="flex gap-5">
@@ -56,19 +53,19 @@ export default function InfoPage() {
 
           <div className="flex gap-5">
             <span className="text-gold/55 w-14 shrink-0 pt-0.5 tracking-wide">휴무</span>
-            <span className="text-cream/65">매주 월요일</span>
+            <span className="text-cream/65">연중무휴</span>
           </div>
 
           <div className="flex gap-5">
             <span className="text-gold/55 w-14 shrink-0 pt-0.5 tracking-wide">전화</span>
-            <a href="tel:010-0000-0000" className="text-cream/65 underline underline-offset-4 decoration-gold/20">
-              010-0000-0000
+            <a href="tel:0507-1443-2080" className="text-cream/65 underline underline-offset-4 decoration-gold/20">
+              0507-1443-2080
             </a>
           </div>
 
           <div className="flex gap-5">
             <span className="text-gold/55 w-14 shrink-0 pt-0.5 tracking-wide">주차</span>
-            <span className="text-cream/65">매장 앞 주차 가능</span>
+            <span className="text-cream/65 leading-6">매장 우측 2층~옥상 모든 주차장</span>
           </div>
         </div>
 
@@ -77,7 +74,7 @@ export default function InfoPage() {
           <p className="font-sans text-[10px] text-gold/60 tracking-[0.3em]">NOTICE</p>
           <ul className="font-sans text-xs text-cream/45 leading-7 space-y-1">
             <li>· 예약 없이 방문하실 경우 대기가 있을 수 있습니다</li>
-            <li>· 단체 방문(6인 이상)은 사전 예약 필수입니다</li>
+            <li>· 6인부터 룸 배정, 매장 상황에 따라 변동됩니다</li>
             <li>· 노쇼 방지를 위해 예약 당일 확인 연락을 드립니다</li>
           </ul>
         </div>
@@ -102,7 +99,7 @@ export default function InfoPage() {
           예약하기
         </Link>
         <a
-          href="tel:010-0000-0000"
+          href="tel:0507-1443-2080"
           className="flex-1 py-4 font-sans text-sm font-bold tracking-[0.3em] text-gold text-center border-l border-gold/20 hover:bg-gold/5 transition-colors"
         >
           전화하기

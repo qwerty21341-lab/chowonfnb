@@ -167,7 +167,7 @@ function AboutSection() {
           ABOUT
         </p>
         <h2 className="font-serif text-3xl font-bold text-cream mb-7">
-          Born 1991
+          Born 1991 · 겨울
         </h2>
         <p className="font-sans text-[15px] leading-8 text-cream/65">
           1991년생 사장님이 직접 고르고, 직접 굽는 한우.
@@ -409,7 +409,7 @@ function InfoSection() {
           <div className="flex gap-5">
             <span className="text-gold/55 w-14 shrink-0 pt-0.5">주소</span>
             <span className="text-cream/65 leading-6">
-              경상북도 포항시 남구 이동
+              경상북도 포항시 남구 대이로 159번길 12-8
             </span>
           </div>
           <div className="flex gap-5">
@@ -421,13 +421,17 @@ function InfoSection() {
           </div>
           <div className="flex gap-5">
             <span className="text-gold/55 w-14 shrink-0 pt-0.5">전화</span>
-            <a href="tel:010-0000-0000" className="text-cream/65">
-              010-0000-0000
+            <a href="tel:0507-1443-2080" className="text-cream/65">
+              0507-1443-2080
             </a>
           </div>
           <div className="flex gap-5">
             <span className="text-gold/55 w-14 shrink-0 pt-0.5">휴무</span>
-            <span className="text-cream/65">매주 월요일</span>
+            <span className="text-cream/65">연중무휴</span>
+          </div>
+          <div className="flex gap-5">
+            <span className="text-gold/55 w-14 shrink-0 pt-0.5">주차</span>
+            <span className="text-cream/65 leading-6">매장 우측 2층~옥상 모든 주차장</span>
           </div>
         </div>
         <a
@@ -457,7 +461,15 @@ function Footer() {
       <p className="font-serif text-2xl text-gold/35 mb-2 tracking-widest">
         단소상회
       </p>
-      <p className="font-sans text-[11px] text-cream/20">
+      <a
+        href="https://www.instagram.com/danso.pohang"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-sans text-[11px] text-cream/30 tracking-widest hover:text-cream/60 transition-colors"
+      >
+        @danso.pohang
+      </a>
+      <p className="font-sans text-[11px] text-cream/20 mt-2">
         © 2025 단소상회. All rights reserved.
       </p>
     </footer>
@@ -480,7 +492,7 @@ function BottomBar({
         예약하기
       </button>
       <a
-        href="tel:010-0000-0000"
+        href="tel:0507-1443-2080"
         className="flex-1 py-4 font-sans text-sm font-bold tracking-[0.3em] text-gold text-center border-l border-gold/20 hover:bg-gold/5 transition-colors"
       >
         전화하기

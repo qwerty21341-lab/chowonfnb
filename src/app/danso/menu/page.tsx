@@ -123,7 +123,7 @@ export default function MenuPage() {
           예약하기
         </Link>
         <a
-          href="tel:010-0000-0000"
+          href="tel:0507-1443-2080"
           className="flex-1 py-4 font-sans text-sm font-bold tracking-[0.3em] text-gold text-center border-l border-gold/20 hover:bg-gold/5 transition-colors"
         >
           전화하기
