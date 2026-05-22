@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useTransition } from "react";
 import Link from "next/link";
+import { submitReservation } from "./actions";
 
 // ─── Ember Particles ─────────────────────────────────────────────────────────
 
@@ -167,11 +168,13 @@ function AboutSection() {
           ABOUT
         </p>
         <h2 className="font-serif text-3xl font-bold text-cream mb-7">
-          Born 1991 · 겨울
+          Born 2019 · 어느 여름
         </h2>
         <p className="font-sans text-[15px] leading-8 text-cream/65">
           1991년생 사장님이 직접 고르고, 직접 굽는 한우.
-          포항에서 나고 자란 사람이 포항 사람들에게 정직하게 드리는 한우 한 점입니다.
+          포항에서 나고 자란 사람이 
+          포항 사람들에게 정직하게 드리는 
+          최상의 한우 한 점입니다.
         </p>
         <p className="font-sans text-[15px] leading-8 text-cream/65 mt-4">
           등급은 숫자가 아니라 신념입니다.
@@ -281,10 +284,28 @@ function ReservationSection({
   sectionRef: React.RefObject<HTMLElement | null>;
 }) {
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
+  const [isPending, startTransition] = useTransition();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
+    const fd = new FormData(e.currentTarget);
+    const data = {
+      name:   fd.get("name") as string,
+      date:   fd.get("date") as string,
+      time:   fd.get("time") as string,
+      guests: fd.get("guests") as string,
+      phone:  fd.get("phone") as string,
+      note:   fd.get("note") as string,
+    };
+    startTransition(async () => {
+      const result = await submitReservation(data);
+      if (result.success) {
+        setSent(true);
+      } else {
+        setError("전송 중 오류가 발생했습니다. 전화로 문의해 주세요.");
+      }
+    });
   };
 
   return (
@@ -316,6 +337,7 @@ function ReservationSection({
               </label>
               <input
                 type="text"
+                name="name"
                 required
                 className="w-full bg-white/4 border border-gold/20 text-cream font-sans text-sm px-4 py-3 focus:outline-none focus:border-gold/50 rounded-none"
               />
@@ -327,6 +349,7 @@ function ReservationSection({
                 </label>
                 <input
                   type="date"
+                  name="date"
                   required
                   className="w-full bg-white/4 border border-gold/20 text-cream font-sans text-sm px-4 py-3 focus:outline-none focus:border-gold/50 rounded-none"
                 />
@@ -335,7 +358,7 @@ function ReservationSection({
                 <label className="font-sans text-[10px] text-gold/55 tracking-[0.35em] block mb-2">
                   시간
                 </label>
-                <select className="w-full bg-charcoal border border-gold/20 text-cream font-sans text-sm px-4 py-3 focus:outline-none focus:border-gold/50 rounded-none">
+                <select name="time" className="w-full bg-charcoal border border-gold/20 text-cream font-sans text-sm px-4 py-3 focus:outline-none focus:border-gold/50 rounded-none">
                   {[
                     "17:00","17:30","18:00","18:30","19:00",
                     "19:30","20:00","20:30","21:00",
@@ -351,9 +374,9 @@ function ReservationSection({
               <label className="font-sans text-[10px] text-gold/55 tracking-[0.35em] block mb-2">
                 인원
               </label>
-              <select className="w-full bg-charcoal border border-gold/20 text-cream font-sans text-sm px-4 py-3 focus:outline-none focus:border-gold/50 rounded-none">
+              <select name="guests" className="w-full bg-charcoal border border-gold/20 text-cream font-sans text-sm px-4 py-3 focus:outline-none focus:border-gold/50 rounded-none">
                 {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-                  <option key={n} value={n}>
+                  <option key={n} value={`${n}명`}>
                     {n}명
                   </option>
                 ))}
@@ -365,6 +388,7 @@ function ReservationSection({
               </label>
               <input
                 type="tel"
+                name="phone"
                 required
                 placeholder="010-0000-0000"
                 className="w-full bg-white/4 border border-gold/20 text-cream font-sans text-sm px-4 py-3 focus:outline-none focus:border-gold/50 rounded-none placeholder:text-cream/20"
@@ -375,16 +399,21 @@ function ReservationSection({
                 요청사항
               </label>
               <textarea
+                name="note"
                 rows={3}
                 placeholder="생일, 기념일 등 특별한 사항을 알려주세요"
                 className="w-full bg-white/4 border border-gold/20 text-cream font-sans text-sm px-4 py-3 focus:outline-none focus:border-gold/50 rounded-none placeholder:text-cream/20 resize-none"
               />
             </div>
+            {error && (
+              <p className="font-sans text-xs text-ember/80">{error}</p>
+            )}
             <button
               type="submit"
-              className="w-full py-4 bg-gold text-charcoal font-sans font-bold tracking-[0.3em] text-sm mt-2 hover:bg-gold/90 transition-colors"
+              disabled={isPending}
+              className="w-full py-4 bg-gold text-charcoal font-sans font-bold tracking-[0.3em] text-sm mt-2 hover:bg-gold/90 transition-colors disabled:opacity-50"
             >
-              예약 요청하기
+              {isPending ? "전송 중..." : "예약 요청하기"}
             </button>
           </form>
         )}

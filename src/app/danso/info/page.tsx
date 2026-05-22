@@ -22,16 +22,18 @@ export default function InfoPage() {
       </div>
 
       <div className="px-6 py-10 max-w-md mx-auto space-y-10">
-        {/* Map placeholder */}
-        <div className="w-full h-48 bg-white/4 border border-gold/15 flex items-center justify-center">
-          <a
-            href="https://map.kakao.com/link/search/단소상회"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-sans text-xs text-gold/60 tracking-widest hover:text-gold transition-colors"
-          >
-            카카오맵으로 보기 →
-          </a>
+        {/* Map embed */}
+        <div className="w-full h-56 border border-gold/15 overflow-hidden">
+          <iframe
+            src="https://maps.google.com/maps?q=경상북도+포항시+남구+대이로+159번길+12-8&output=embed&hl=ko&zoom=17"
+            width="100%"
+            height="100%"
+            style={{ border: 0, filter: "grayscale(30%) invert(90%) hue-rotate(180deg)" }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="단소상회 위치"
+          />
         </div>
 
         {/* Address block */}
