@@ -107,38 +107,57 @@ export async function submitReservation(data: ReservationData) {
   const dateDisplay = formatDate(data.date);
   const guestsDisplay = formatGuests(data.guests, data.babyChairs);
 
-  // Translate note if submitted from English page
   const isEn = data.lang === "en";
   const subjectPrefix = isEn ? "[EN] " : "";
+
+  // Translate note for English reservations
   let noteTranslation: string | null = null;
   if (isEn && data.note) {
     noteTranslation = await translateToKo(data.note);
   }
 
-  const noteHtml = data.note
-    ? `<tr>
-        <td style="padding:8px 0;color:#c9a84c;vertical-align:top">요청사항</td>
-        <td>
-          ${data.note}
-          ${noteTranslation ? `<br><span style="color:#888;font-size:12px">*${noteTranslation}</span>` : ""}
-        </td>
-      </tr>`
-    : "";
+  // Korean-formatted date (always shown in Korean regardless of lang)
+  const dateKo = formatDate(data.date); // e.g. "2026-06-01(월)"
+
+  // Build guest display in Korean
+  const babyNum = parseInt(data.babyChairs) || 0;
+  const guestNum = parseInt(data.guests);
+  let guestsKo: string;
+  if (!isNaN(guestNum)) {
+    guestsKo = babyNum > 0
+      ? `${guestNum}명 (유아 ${babyNum}명 포함)`
+      : `${guestNum}명`;
+  } else {
+    guestsKo = `${data.guests}명`;
+  }
+
+  // Korean summary block appended when lang === "en"
+  const koSummaryHtml = isEn ? `
+    <div style="margin-top:24px;border-top:1px solid #c9a84c40;padding-top:18px">
+      <p style="font-size:10px;letter-spacing:0.3em;color:#c9a84c;margin:0 0 12px">한국어 요약</p>
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <tr><td style="padding:7px 0;color:#c9a84c;width:80px">날짜</td><td>${dateKo}</td></tr>
+        <tr><td style="padding:7px 0;color:#c9a84c">시간</td><td>${data.time}</td></tr>
+        <tr><td style="padding:7px 0;color:#c9a84c">인원</td><td>${guestsKo}</td></tr>
+        ${data.note ? `
+        <tr>
+          <td style="padding:7px 0;color:#c9a84c;vertical-align:top">요청사항</td>
+          <td>${noteTranslation ?? "(번역 실패 — 원문 참고)"}</td>
+        </tr>` : ""}
+      </table>
+    </div>` : "";
 
   console.log(
-    "[reservation] sending to:",
-    to,
-    "| lang:",
-    data.lang ?? "ko",
-    "| key exists:",
-    !!process.env.RESEND_API_KEY
+    "[reservation] sending to:", to,
+    "| lang:", data.lang ?? "ko",
+    "| key exists:", !!process.env.RESEND_API_KEY
   );
 
   try {
     const { data: result, error } = await resend.emails.send({
       from: "단소상회 예약 <noreply@chowonfnb.com>",
       to,
-      subject: `${subjectPrefix}[단소상회 예약 요청] ${dateDisplay} ${data.time} · ${data.name} (${guestsDisplay})`,
+      subject: `${subjectPrefix}[단소상회 예약 요청] ${dateKo} ${data.time} · ${data.name} (${guestsDisplay})`,
       html: `
         <div style="font-family:sans-serif;max-width:480px;padding:24px;background:#1a1612;color:#e8dcc8;border-radius:8px">
           <h2 style="color:#c9a84c;margin:0 0 20px">단소상회 예약 요청</h2>
@@ -147,12 +166,17 @@ export async function submitReservation(data: ReservationData) {
           </p>
           <table style="width:100%;border-collapse:collapse;font-size:14px">
             <tr><td style="padding:8px 0;color:#c9a84c;width:80px">이름</td><td>${data.name}</td></tr>
-            <tr><td style="padding:8px 0;color:#c9a84c">날짜</td><td>${dateDisplay}</td></tr>
+            <tr><td style="padding:8px 0;color:#c9a84c">날짜</td><td>${dateKo}</td></tr>
             <tr><td style="padding:8px 0;color:#c9a84c">시간</td><td>${data.time}</td></tr>
             <tr><td style="padding:8px 0;color:#c9a84c">인원</td><td>${guestsDisplay}</td></tr>
             <tr><td style="padding:8px 0;color:#c9a84c">연락처</td><td>${data.phone}</td></tr>
-            ${noteHtml}
+            ${data.note ? `
+            <tr>
+              <td style="padding:8px 0;color:#c9a84c;vertical-align:top">요청사항</td>
+              <td>${data.note}</td>
+            </tr>` : ""}
           </table>
+          ${koSummaryHtml}
         </div>
       `,
     });
