@@ -56,6 +56,11 @@ function isValidKoreanMobile(phone: string) {
   return /^01[016789]\d{7,8}$/.test(normalized);
 }
 
+/** Returns true if the string contains at least one Hangul character */
+function isKoreanText(text: string): boolean {
+  return /[가-힣ᄀ-ᇿ㄰-㆏]/.test(text);
+}
+
 function getKoreaNow() {
   const parts = new Intl.DateTimeFormat("en-CA", {
     timeZone: "Asia/Seoul",
@@ -110,9 +115,11 @@ export async function submitReservation(data: ReservationData) {
   const isEn = data.lang === "en";
   const subjectPrefix = isEn ? "[EN] " : "";
 
-  // Translate note for English reservations
+  // Translate note whenever it contains foreign (non-Korean) text,
+  // regardless of which page the reservation came from.
+  const noteNeedsTranslation = !!data.note && !isKoreanText(data.note);
   let noteTranslation: string | null = null;
-  if (isEn && data.note) {
+  if (noteNeedsTranslation) {
     noteTranslation = await translateToKo(data.note);
   }
 
@@ -173,7 +180,10 @@ export async function submitReservation(data: ReservationData) {
             ${data.note ? `
             <tr>
               <td style="padding:8px 0;color:#c9a84c;vertical-align:top">요청사항</td>
-              <td>${data.note}</td>
+              <td>
+                ${data.note}
+                ${noteNeedsTranslation ? `<br/><span style="font-size:11px;color:#c9a84c;opacity:0.6">*(번역)</span> <span style="font-size:13px;color:#e8dcc8;opacity:0.8">${noteTranslation ?? "(번역 실패 — 원문 참고)"}</span>` : ""}
+              </td>
             </tr>` : ""}
           </table>
           ${koSummaryHtml}
