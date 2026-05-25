@@ -802,7 +802,7 @@ function InfoSection() {
 function Footer() {
   const { d, lang } = useD();
   return (
-    <footer className="bg-charcoal py-10 px-8 text-center border-t border-gold/10">
+    <footer className="bg-charcoal pt-10 pb-24 px-8 text-center border-t border-gold/10">
       <p className="font-serif text-2xl text-gold/35 mb-2 tracking-widest">단소상회</p>
       <a href="https://www.instagram.com/danso.pohang" target="_blank" rel="noopener noreferrer"
         className="font-sans text-[11px] text-cream/30 tracking-widest hover:text-cream/60 transition-colors">
