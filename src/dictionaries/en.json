@@ -1,7 +1,7 @@
 {
   "hero": {
     "subtitle": "Idong, Pohang · Premium Korean Beef",
-    "tagline": "Grade 1++(9) Hanwoo · Charcoal Grill"
+    "tagline": "Hanwoo · Charcoal Grill"
   },
   "about": {
     "h2": "Born 1991 · One Summer",
@@ -48,7 +48,8 @@
     "i05b2": "Easily accessible by elevator.",
     "i05b3": "Even on a rainy day, not a single drop",
     "i05b4": "will touch your clothes on the way to your table.",
-    "i01_altText": "Grade 1++(9) Hanwoo raw cut with marbling"
+    "i01_altText": "Grade 1++(9) Hanwoo raw cut with marbling",
+    "i01gradeUngraded": "Ungraded"
   },
   "gallery": {
     "h2": "Danso Hanwoo",
@@ -119,7 +120,7 @@
     "lHours": "Hours",
     "hoursVal": "Daily 17:00 — 23:00",
     "lastOrder": "Last order 22:00",
-    "lClosed": "Days Off",
+    "lClosed": "Closed Days",
     "closedVal": "Open year-round",
     "lPhone": "Phone",
     "lParking": "Parking",
@@ -154,7 +155,7 @@
     "lHours": "Hours",
     "hoursVal": "Daily 17:00 — 23:00",
     "lastOrder": "Last order 22:00",
-    "lClosed": "Days Off",
+    "lClosed": "Closed Days",
     "closedVal": "Open year-round",
     "lPhone": "Phone",
     "lParking": "Parking",

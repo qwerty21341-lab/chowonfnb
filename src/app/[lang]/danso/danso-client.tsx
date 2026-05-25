@@ -257,7 +257,7 @@ function StorySection() {
                 { label: "1",      w: "52%",  gold: false },
                 { label: "2",      w: "66%",  gold: false },
                 { label: "3",      w: "80%",  gold: false },
-                { label: "등외",   w: "100%", gold: false },
+                { label: s.i01gradeUngraded, w: "100%", gold: false },
               ].map((g) => (
                 <div key={g.label} className="flex items-center gap-3">
                   <span className={`font-sans text-[10px] w-11 shrink-0 text-right tracking-wide ${g.gold ? "text-gold font-bold" : "text-cream/20"}`}>
