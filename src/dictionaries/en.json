@@ -68,7 +68,21 @@
     "h2": "Guest Reviews",
     "source": "Verified Naver Visitor Reviews",
     "showMore": "Show more",
-    "imgAlt": "Guest review"
+    "imgAlt": "Guest review",
+    "quotes": [
+      "Found this while searching for beef? Just book it.",
+      "Drove 2 hours round-trip for the garlic galbi. Worth every minute.",
+      "A place I have to visit at least once a month.",
+      "A different class of Hanwoo — highest recommendation.",
+      "Incredible charcoal heat, warm service. Left completely satisfied.",
+      "Easy parking, great meat. We keep coming back.",
+      "Already on our 3rd visit. The galbi short rib is exceptional.",
+      "The galbi here tastes unlike anywhere else.",
+      "We're already planning to come back for our next family gathering.",
+      "Aged beef, atmosphere, and service — all three flawless.",
+      "It practically melted the moment it touched my tongue.",
+      "Quiet, well-appointed, and perfect for a date night."
+    ]
   },
   "menu": {
     "h2": "Danso Hanwoo",

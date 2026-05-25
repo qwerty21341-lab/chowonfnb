@@ -379,10 +379,11 @@ function GallerySection() {
 // ─── Section: REVIEW ─────────────────────────────────────────────────────────
 
 function ReviewSection() {
-  const { d } = useD();
+  const { d, lang } = useD();
   const [visibleCount, setVisibleCount] = useState(4);
   const STEP = 4;
   const remaining = REVIEW_SRCS.length - visibleCount;
+  const showQuotes = lang === "en";
 
   return (
     <section className="py-24 bg-panel">
@@ -394,8 +395,17 @@ function ReviewSection() {
 
       <div className="grid grid-cols-2 gap-2 px-4">
         {REVIEW_SRCS.slice(0, visibleCount).map((src, i) => (
-          <div key={src} className="overflow-hidden rounded-sm">
+          <div key={src} className="rounded-sm overflow-hidden">
             <Image src={src} alt={d.review.imgAlt} width={600} height={900} className="w-full h-auto" />
+            {showQuotes && d.review.quotes[i] && (
+              <div className="px-3 py-3 bg-charcoal border-t border-gold/15">
+                <p className="font-serif text-[10px] italic leading-[1.65] text-cream/55">
+                  <span className="text-gold/50 not-italic text-sm leading-none">"</span>
+                  {d.review.quotes[i]}
+                  <span className="text-gold/50 not-italic text-sm leading-none">"</span>
+                </p>
+              </div>
+            )}
           </div>
         ))}
       </div>

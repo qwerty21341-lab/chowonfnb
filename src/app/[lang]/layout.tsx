@@ -18,7 +18,9 @@ export default async function LangLayout({
   return (
     <>
       <LanguageSwitcher lang={lang as Locale} />
-      {children}
+      <div data-lang={lang} style={{ display: "contents" }}>
+        {children}
+      </div>
     </>
   );
 }
