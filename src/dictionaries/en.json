@@ -181,5 +181,8 @@
     "kakao": "View on KakaoMap",
     "reserve": "Reserve",
     "call": "Call"
+  },
+  "footer": {
+    "privacy": "Privacy Policy"
   }
 }
