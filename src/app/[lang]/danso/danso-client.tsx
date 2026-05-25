@@ -495,6 +495,7 @@ function getKoreaNow() {
 type ReservationData = {
   name: string; date: string; time: string; guests: string;
   babyChairs: string; phone: string; note: string; website: string;
+  lang?: string;
 };
 
 function ReservationSection({
@@ -538,6 +539,7 @@ function ReservationSection({
       phone:      fd.get("phone") as string,
       note:       fd.get("note") as string,
       website:    fd.get("website") as string,
+      lang,
     };
 
     const now = getKoreaNow();

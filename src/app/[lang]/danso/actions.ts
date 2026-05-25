@@ -13,6 +13,22 @@ export interface ReservationData {
   phone: string;
   note: string;
   website?: string;
+  lang?: string;
+}
+
+async function translateToKo(text: string): Promise<string | null> {
+  try {
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|ko`;
+    const res = await fetch(url, { signal: AbortSignal.timeout(4000) });
+    if (!res.ok) return null;
+    const json = (await res.json()) as { responseData?: { translatedText?: string } };
+    const translated = json?.responseData?.translatedText ?? null;
+    // MyMemory returns the original text if it can't translate
+    if (!translated || translated === text) return null;
+    return translated;
+  } catch {
+    return null;
+  }
 }
 
 function formatDate(dateStr: string) {
@@ -91,9 +107,29 @@ export async function submitReservation(data: ReservationData) {
   const dateDisplay = formatDate(data.date);
   const guestsDisplay = formatGuests(data.guests, data.babyChairs);
 
+  // Translate note if submitted from English page
+  const isEn = data.lang === "en";
+  const subjectPrefix = isEn ? "[EN] " : "";
+  let noteTranslation: string | null = null;
+  if (isEn && data.note) {
+    noteTranslation = await translateToKo(data.note);
+  }
+
+  const noteHtml = data.note
+    ? `<tr>
+        <td style="padding:8px 0;color:#c9a84c;vertical-align:top">요청사항</td>
+        <td>
+          ${data.note}
+          ${noteTranslation ? `<br><span style="color:#888;font-size:12px">*${noteTranslation}</span>` : ""}
+        </td>
+      </tr>`
+    : "";
+
   console.log(
     "[reservation] sending to:",
     to,
+    "| lang:",
+    data.lang ?? "ko",
     "| key exists:",
     !!process.env.RESEND_API_KEY
   );
@@ -102,12 +138,12 @@ export async function submitReservation(data: ReservationData) {
     const { data: result, error } = await resend.emails.send({
       from: "단소상회 예약 <noreply@chowonfnb.com>",
       to,
-      subject: `[단소상회 예약 요청] ${dateDisplay} ${data.time} · ${data.name} (${guestsDisplay})`,
+      subject: `${subjectPrefix}[단소상회 예약 요청] ${dateDisplay} ${data.time} · ${data.name} (${guestsDisplay})`,
       html: `
         <div style="font-family:sans-serif;max-width:480px;padding:24px;background:#1a1612;color:#e8dcc8;border-radius:8px">
           <h2 style="color:#c9a84c;margin:0 0 20px">단소상회 예약 요청</h2>
           <p style="margin:0 0 18px;padding:12px;background:#2a2118;color:#f1d38a;border-radius:6px;font-size:13px;line-height:1.6">
-            ※ 아직 확정 예약이 아닙니다. 고객 확인 연락 후 확정 처리하세요.
+            ※ 아직 확정 예약이 아닙니다. 고객 확인 연락 후 확정 처리하세요.${isEn ? " (영어 페이지 접수)" : ""}
           </p>
           <table style="width:100%;border-collapse:collapse;font-size:14px">
             <tr><td style="padding:8px 0;color:#c9a84c;width:80px">이름</td><td>${data.name}</td></tr>
@@ -115,7 +151,7 @@ export async function submitReservation(data: ReservationData) {
             <tr><td style="padding:8px 0;color:#c9a84c">시간</td><td>${data.time}</td></tr>
             <tr><td style="padding:8px 0;color:#c9a84c">인원</td><td>${guestsDisplay}</td></tr>
             <tr><td style="padding:8px 0;color:#c9a84c">연락처</td><td>${data.phone}</td></tr>
-            ${data.note ? `<tr><td style="padding:8px 0;color:#c9a84c">요청사항</td><td>${data.note}</td></tr>` : ""}
+            ${noteHtml}
           </table>
         </div>
       `,
