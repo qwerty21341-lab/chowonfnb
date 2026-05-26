@@ -6,11 +6,11 @@
 # ─── Telegram ─────────────────────────────────────────────
 # 1. https://t.me/BotFather 에서 /newbot 으로 봇 생성
 # 2. 봇 토큰 복사
-TELEGRAM_BOT_TOKEN = ""   # "7xxxxxxxx:AAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+TELEGRAM_BOT_TOKEN = "8945416716:AAFGV4NWsISbwwZBxzToCe_zKkrQzJRdgKk"
 
 # 3. 봇에게 메시지 한 번 보내고
 #    https://api.telegram.org/bot<TOKEN>/getUpdates 에서 chat.id 확인
-TELEGRAM_CHAT_ID = ""     # "-100xxxxxxxxxx" (채널) 또는 "xxxxxxxxx" (개인)
+TELEGRAM_CHAT_ID = "2118277787"
 
 # ─── Instagram Graph API ─────────────────────────────────
 # 1. https://developers.facebook.com/ 에서 앱 생성 (무료)

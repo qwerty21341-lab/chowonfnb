@@ -4,6 +4,23 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// ─── Telegram 알림 ────────────────────────────────────────────────────────────
+async function sendTelegramAlert(text: string) {
+  const token  = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return;
+
+  try {
+    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" }),
+    });
+  } catch (e) {
+    console.warn("[telegram] 알림 실패:", e);
+  }
+}
+
 export interface ReservationData {
   name: string;
   date: string;
@@ -126,6 +143,21 @@ export async function submitReservation(data: ReservationData) {
     }
 
     console.log("[reservation] sent ok, id:", result?.id);
+
+    // 텔레그램 예약 알림
+    const babyLine = parseInt(data.babyChairs) > 0
+      ? `\n👶 아기의자 ${data.babyChairs}개` : "";
+    const noteLine = data.note ? `\n📝 ${data.note}` : "";
+    await sendTelegramAlert(
+      `📋 <b>예약 요청</b>\n` +
+      `━━━━━━━━━━━━━\n` +
+      `👤 ${data.name}\n` +
+      `📅 ${dateDisplay} ${data.time}\n` +
+      `👥 ${data.guests}명${babyLine}\n` +
+      `📞 ${data.phone}` +
+      noteLine
+    );
+
     return { success: true };
   } catch (e) {
     console.error("[reservation] exception:", e);

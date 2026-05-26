@@ -77,7 +77,7 @@ def notify_reservation(data: dict) -> bool:
         f"📅 {data.get('date', '')} {data.get('time', '')}\n"
         f"👥 {data.get('guests', '')}명\n"
         f"📞 {data.get('phone', '')}\n"
-        f"{f'📝 {data[\"note\"]}' if data.get('note') else ''}"
+        + (f"📝 {data['note']}" if data.get('note') else "")
     )
     return asyncio.run(telegram_send_text(msg))
 
@@ -220,8 +220,9 @@ def publish_all(
 if __name__ == "__main__":
     import sys
     # 연결 테스트
-    print("\n📡 발행 에이전트 연결 테스트")
+    import sys; sys.stdout.reconfigure(encoding='utf-8')
+    print("\n[발행 에이전트] 텔레그램 연결 테스트")
     asyncio.run(telegram_send_text(
-        "✅ 단소상회 마케팅 에이전트 연결 테스트\n"
+        "단소상회 마케팅 에이전트 연결 테스트\n"
         f"{datetime.now().strftime('%Y-%m-%d %H:%M')}"
     ))
