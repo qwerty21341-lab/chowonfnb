@@ -26,7 +26,7 @@ export default function Icon() {
             fontFamily: "serif",
           }}
         >
-          단
+          牛
         </span>
       </div>
     ),
