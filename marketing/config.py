@@ -2,31 +2,46 @@
 마케팅 에이전트 설정
 ── 여기에 API 키를 채워넣으세요 ──
 """
+import os
 
-# ─── Telegram ─────────────────────────────────────────────
-# 1. https://t.me/BotFather 에서 /newbot 으로 봇 생성
-# 2. 봇 토큰 복사
+# ─── Telegram ✅ 연결됨 ───────────────────────────────────
 TELEGRAM_BOT_TOKEN = "8945416716:AAFGV4NWsISbwwZBxzToCe_zKkrQzJRdgKk"
-
-# 3. 봇에게 메시지 한 번 보내고
-#    https://api.telegram.org/bot<TOKEN>/getUpdates 에서 chat.id 확인
-TELEGRAM_CHAT_ID = "2118277787"
+TELEGRAM_CHAT_ID   = "2118277787"
 
 # ─── Instagram Graph API ─────────────────────────────────
-# 1. https://developers.facebook.com/ 에서 앱 생성 (무료)
-# 2. Instagram Basic Display or Graph API 연결
-# 3. 비즈니스 계정 필요 (개인 계정 → 비즈니스 전환: 무료)
-INSTAGRAM_ACCESS_TOKEN = ""   # "EAAxxxxxxxx..."
-INSTAGRAM_BUSINESS_ID  = ""   # "17xxxxxxxxx"
+# 1. https://developers.facebook.com/ 앱 생성 (무료)
+# 2. Instagram Graph API 추가, Instagram Business 계정 연결
+# 3. 장기 액세스 토큰 발급 (60일, 자동 갱신 코드 포함됨)
+INSTAGRAM_ACCESS_TOKEN = os.environ.get("INSTAGRAM_ACCESS_TOKEN", "")
+INSTAGRAM_BUSINESS_ID  = os.environ.get("INSTAGRAM_BUSINESS_ID", "")
 
-# ─── Google Business Profile ────────────────────────────
-# 1. Google Cloud Console 프로젝트 생성 (무료)
-# 2. Business Profile API 활성화
-# 3. OAuth 2.0 인증
-GOOGLE_ACCESS_TOKEN  = ""    # OAuth 후 발급
-GOOGLE_LOCATION_NAME = ""    # "accounts/xxxxxxx/locations/xxxxxxx"
+# ─── Google APIs ─────────────────────────────────────────
+# 1. https://console.cloud.google.com/ 프로젝트 생성
+# 2. 아래 API 활성화:
+#    - My Business Business Information API
+#    - Search Console API
+#    - Google Analytics Data API
+# 3. OAuth 2.0 클라이언트 ID 생성 (데스크톱 앱)
+# 4. python marketing/setup_google_oauth.py 실행 → Refresh Token 발급
+GOOGLE_CLIENT_ID      = os.environ.get("GOOGLE_CLIENT_ID", "")
+GOOGLE_CLIENT_SECRET  = os.environ.get("GOOGLE_CLIENT_SECRET", "")
+GOOGLE_REFRESH_TOKEN  = os.environ.get("GOOGLE_REFRESH_TOKEN", "")
+GOOGLE_LOCATION_NAME  = os.environ.get("GOOGLE_LOCATION_NAME", "")  # "accounts/xxx/locations/xxx"
+GA4_PROPERTY_ID       = os.environ.get("GA4_PROPERTY_ID", "")       # "properties/xxxxxxxxx"
+GSC_SITE_URL          = os.environ.get("GSC_SITE_URL", "https://chowonfnb.com")
 
-# ─── Anthropic (카피 에이전트) ───────────────────────────
-# 기존 프로젝트 .env의 키를 그대로 사용 가능
-import os
+# ─── Stability AI ────────────────────────────────────────
+# https://platform.stability.ai/ 무료 가입 → API Keys → 키 생성
+STABILITY_API_KEY = os.environ.get("STABILITY_API_KEY", "")
+
+# ─── Pexels ──────────────────────────────────────────────
+# https://www.pexels.com/api/ 무료 가입 → Your API Key
+PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY", "")
+
+# ─── Naver Developer (플레이스 모니터링) ─────────────────
+# https://developers.naver.com/apps/ 앱 생성 → 검색 API 신청 (무료)
+NAVER_CLIENT_ID     = os.environ.get("NAVER_CLIENT_ID", "")
+NAVER_CLIENT_SECRET = os.environ.get("NAVER_CLIENT_SECRET", "")
+
+# ─── Anthropic ✅ 기존 .env 사용 ─────────────────────────
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")

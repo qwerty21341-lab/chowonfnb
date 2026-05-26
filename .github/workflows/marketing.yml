@@ -1,0 +1,90 @@
+name: 마케팅 에이전트 자동 실행
+
+on:
+  # 수동 실행 (GitHub Actions 탭에서 버튼으로 실행)
+  workflow_dispatch:
+    inputs:
+      keyword:
+        description: "키워드 (예: 오늘 갈빗살 입고)"
+        required: true
+        default: "오늘의 특선"
+      platforms:
+        description: "플랫폼 (telegram instagram google_business)"
+        required: false
+        default: "telegram"
+
+  # 매일 오전 10시 자동 실행 (선택 — 주석 해제하면 활성화)
+  # schedule:
+  #   - cron: "0 1 * * *"   # UTC 01:00 = KST 10:00
+
+jobs:
+  weekly-report:
+    name: 주간 리포트 발송
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 의존성 설치
+        run: pip install anthropic httpx pillow opencv-python-headless faster-whisper
+
+      - name: 주간 리포트 전송
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_CLIENT_ID:      ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET:  ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN:  ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_LOCATION_NAME:  ${{ secrets.GOOGLE_LOCATION_NAME }}
+          GA4_PROPERTY_ID:       ${{ secrets.GA4_PROPERTY_ID }}
+          GSC_SITE_URL:          ${{ secrets.GSC_SITE_URL }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_BUSINESS_ID:  ${{ secrets.INSTAGRAM_BUSINESS_ID }}
+        run: |
+          cd marketing
+          python - <<'EOF'
+          import sys, asyncio
+          sys.path.insert(0, "agents")
+          from google_agent import weekly_report as google_report
+          from instagram_agent import insights_report
+          from naver_agent import monitor_place
+          from publish_agent import telegram_send_text
+
+          report = "\n\n".join([
+              google_report(),
+              insights_report(),
+              monitor_place(),
+          ])
+          asyncio.run(telegram_send_text(report))
+          print("리포트 전송 완료")
+          EOF
+
+  manual-pipeline:
+    name: 마케팅 파이프라인 수동 실행
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 의존성 설치
+        run: pip install anthropic httpx pillow opencv-python-headless faster-whisper
+
+      - name: 카피 에이전트 실행
+        env:
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          cd marketing
+          python agents/copy_agent.py "${{ github.event.inputs.keyword }}"

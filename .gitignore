@@ -42,3 +42,6 @@ next-env.d.ts
 .env.local
 
 .vercel
+marketing/**/__pycache__/
+marketing/output/
+marketing/.google_token.json
