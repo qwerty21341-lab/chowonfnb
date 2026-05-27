@@ -41,7 +41,7 @@ export function SiteNav({ lang }: Props) {
             </Link>
           ))}
           <Link
-            href={`${base}#reservation`}
+            href={`${base}/reservation`}
             className="font-sans text-[11px] tracking-[0.25em] font-bold text-charcoal bg-gold px-3 py-1.5 hover:bg-gold/85 transition-colors"
           >
             예약
