@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import { notFound } from "next/navigation";
+import { SiteNav } from "@/components/SiteNav";
 
 const META_TITLE: Record<Locale, string> = {
   ko: "단소상회 위치 — 포항 이동 한우 맛집 · 주차 안내",
@@ -60,15 +61,11 @@ export default async function InfoPage({
 
   return (
     <main className="min-h-dvh bg-charcoal pb-24">
+      <SiteNav lang={locale} />
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-charcoal/95 backdrop-blur-sm border-b border-gold/15 px-6 py-4 flex items-center gap-4">
-        <Link href={`/${locale}/danso`} className="font-sans text-gold/60 text-sm hover:text-gold transition-colors">
-          ←
-        </Link>
-        <div>
-          <p className="font-serif text-lg font-bold text-cream tracking-wider">{i.title}</p>
-          <p className="font-sans text-[10px] text-gold/50 tracking-widest">단소상회</p>
-        </div>
+      <div className="pt-14 border-b border-gold/15 px-6 py-4">
+        <p className="font-serif text-lg font-bold text-cream tracking-wider">{i.title}</p>
+        <p className="font-sans text-[10px] text-gold/50 tracking-widest">단소상회</p>
       </div>
 
       <div className="px-6 py-10 max-w-md mx-auto space-y-10">

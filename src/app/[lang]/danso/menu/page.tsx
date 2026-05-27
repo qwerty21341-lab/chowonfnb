@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import { notFound } from "next/navigation";
+import { SiteNav } from "@/components/SiteNav";
 
 const META_TITLE: Record<Locale, string> = {
   ko: "단소상회 메뉴 — 포항 한우 메뉴 · 1++(9) 특상한우",
@@ -92,15 +93,11 @@ export default async function MenuPage({
 
   return (
     <main className="min-h-dvh bg-charcoal pb-16">
+      <SiteNav lang={locale} />
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-charcoal/95 backdrop-blur-sm border-b border-gold/15 px-6 py-4 flex items-center gap-4">
-        <Link href={`/${locale}/danso`} className="font-sans text-gold/60 text-sm hover:text-gold transition-colors">
-          ←
-        </Link>
-        <div>
-          <p className="font-serif text-lg font-bold text-cream tracking-wider">{m.title}</p>
-          <p className="font-sans text-[10px] text-gold/50 tracking-widest">{m.subtitle}</p>
-        </div>
+      <div className="pt-14 border-b border-gold/15 px-6 py-4">
+        <p className="font-serif text-lg font-bold text-cream tracking-wider">{m.title}</p>
+        <p className="font-sans text-[10px] text-gold/50 tracking-widest">{m.subtitle}</p>
       </div>
 
       {/* Intro */}

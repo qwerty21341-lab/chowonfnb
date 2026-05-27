@@ -13,6 +13,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { submitReservation } from "./actions";
 import type { Dict, Locale } from "@/dictionaries";
+import { SiteNav } from "@/components/SiteNav";
 
 // ─── Context ──────────────────────────────────────────────────────────────────
 
@@ -853,6 +854,8 @@ export function DansoPage({ dict, lang }: { dict: Dict; lang: Locale }) {
   return (
     <DictCtx.Provider value={{ d: dict, lang }}>
       {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
+
+      {splashDone && <SiteNav lang={lang} />}
 
       <main style={{ opacity: splashDone ? 1 : 0, transition: "opacity 0.7s ease" }}>
         <HeroSection />
