@@ -57,7 +57,7 @@ export default async function BlogListPage({
 
         {/* Post list */}
         <div className="max-w-2xl mx-auto px-6 py-8 space-y-0 pb-24">
-          {BLOG_POSTS.map((post) => (
+          {[...BLOG_POSTS].sort((a, b) => b.date.localeCompare(a.date)).map((post) => (
             <Link
               key={post.slug}
               href={`/${locale}/danso/blog/${post.slug}`}
