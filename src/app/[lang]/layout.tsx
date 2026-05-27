@@ -2,6 +2,10 @@ import { hasLocale, type Locale } from "@/dictionaries";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { notFound } from "next/navigation";
 
+export async function generateStaticParams() {
+  return [{ lang: "ko" }, { lang: "en" }];
+}
+
 export default async function LangLayout({
   children,
   params,
