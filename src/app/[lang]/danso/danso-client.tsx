@@ -86,9 +86,10 @@ const BUILD_WORDS = [
 function SplashScreen({ onComplete }: { onComplete: () => void }) {
   const [phase,   setPhase]   = useState(0);
   const [exiting, setExiting] = useState(false);
+  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
-    const timers = [
+    timersRef.current = [
       setTimeout(() => setPhase(1), 560),
       setTimeout(() => setPhase(2), 1440),
       setTimeout(() => setPhase(3), 2320),
@@ -99,8 +100,14 @@ function SplashScreen({ onComplete }: { onComplete: () => void }) {
         setTimeout(onComplete, 550);
       }, 5760),
     ];
-    return () => timers.forEach(clearTimeout);
+    return () => timersRef.current.forEach(clearTimeout);
   }, [onComplete]);
+
+  const handleSkip = () => {
+    timersRef.current.forEach(clearTimeout);
+    setExiting(true);
+    setTimeout(onComplete, 400);
+  };
 
   const atFinal = phase >= 5;
 
@@ -144,6 +151,15 @@ function SplashScreen({ onComplete }: { onComplete: () => void }) {
           </p>
         </div>
       </div>
+
+      {/* Skip 버튼 */}
+      <button
+        type="button"
+        onClick={handleSkip}
+        className="absolute bottom-8 right-6 font-sans text-[10px] tracking-[0.35em] text-cream/25 hover:text-cream/60 transition-colors"
+      >
+        SKIP
+      </button>
     </div>
   );
 }
