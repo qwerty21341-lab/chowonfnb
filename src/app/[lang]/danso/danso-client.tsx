@@ -3,6 +3,7 @@
 import {
   useState,
   useEffect,
+  useLayoutEffect,
   useRef,
   useCallback,
   useTransition,
@@ -839,15 +840,17 @@ function BottomBar({ onReservation }: { onReservation: () => void }) {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export function DansoPage({ dict, lang }: { dict: Dict; lang: Locale }) {
-  const [splashDone, setSplashDone] = useState(() => {
-    if (typeof window !== "undefined") {
-      return window.location.hash === "#reservation";
-    }
-    return false;
-  });
+  const [splashDone, setSplashDone] = useState(false);
   const reservationRef = useRef<HTMLElement>(null);
 
-  // #reservation 해시로 진입 시 예약 섹션으로 스크롤
+  // 페인트 전에 실행 → 깜빡임 없이 스플래시 스킵
+  useLayoutEffect(() => {
+    if (window.location.hash === "#reservation") {
+      setSplashDone(true);
+    }
+  }, []);
+
+  // splashDone 후 예약 섹션으로 스크롤
   useEffect(() => {
     if (splashDone && window.location.hash === "#reservation") {
       setTimeout(() => {
