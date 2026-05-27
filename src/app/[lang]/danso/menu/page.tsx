@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
+import { hasLocale, type Locale } from "@/dictionaries";
 import { notFound } from "next/navigation";
 import { SiteNav } from "@/components/SiteNav";
 
@@ -10,7 +10,7 @@ const META_TITLE: Record<Locale, string> = {
 };
 
 const META_DESC: Record<Locale, string> = {
-  ko: "포항 이동 한우 전문점 단소상회 메뉴. 1++(9) 특상한우, 참숯 직화구이, 한우포갈비, 안창살, 등심, 꽃갈비살 등 포항 소고기 메뉴 안내.",
+  ko: "포항 이동 한우 전문점 단소상회 메뉴. 1++(9) 특상한우 전 부위. 한우포갈비, 안창살, 새우등심, 꽃갈비살 등 포항 소고기 메뉴 안내.",
   en: "Danso restaurant menu in Idong, Pohang. Grade 1++(9) Hanwoo beef, charcoal grill, premium Korean beef cuts.",
 };
 
@@ -47,36 +47,27 @@ export async function generateMetadata({
   };
 }
 
-const MENU_CATEGORIES_KO = [
-  {
-    catKey: "catBeef" as const,
-    noteKey: "catBeefNote" as const,
-    items: [
-      { name: "등심",  descKo: "풍부한 마블링이 살아 있는 단소상회의 시그니처", descEn: "Signature cut — rich marbling throughout", unit: "100g" },
-      { name: "채끝",  descKo: "부드러운 결, 담백하고 깔끔한 맛",              descEn: "Tender grain, clean and light flavor",    unit: "100g" },
-      { name: "안심",  descKo: "가장 연한 부위, 특별한 날을 위해",              descEn: "The most tender cut, for special occasions", unit: "100g" },
-      { name: "꽃살",  descKo: "꽃처럼 피어난 마블링, 육즙이 풍부",            descEn: "Flower-like marbling, intensely juicy",  unit: "100g" },
-      { name: "갈비",  descKo: "참숯 위에서 천천히 익히는 프리미엄 갈비",       descEn: "Premium galbi, slow-cooked over charcoal", unit: "1인분" },
-    ],
-  },
-  {
-    catKey: "catSide" as const,
-    noteKey: null,
-    items: [
-      { name: "냉면",    descKo: "고기 후에 마무리하는 시원한 평양냉면 스타일", descEn: "Cool Pyongyang-style naengmyeon to finish",  unit: "1그릇" },
-      { name: "된장찌개", descKo: "사장님이 직접 끓이는 구수한 한식 된장찌개",   descEn: "Owner's homemade doenjang-jjigae",        unit: "1인" },
-      { name: "공기밥",   descKo: "",                                          descEn: "",                                        unit: "1공기" },
-    ],
-  },
-  {
-    catKey: "catDrinks" as const,
-    noteKey: null,
-    items: [
-      { name: "소주",   descKo: "", descEn: "",                                  unit: "1병" },
-      { name: "맥주",   descKo: "", descEn: "",                                  unit: "1병" },
-      { name: "막걸리", descKo: "한우와 어울리는 전통 막걸리", descEn: "Traditional makgeolli, pairs well with Hanwoo", unit: "1병" },
-    ],
-  },
+const BEEF_GRID = [
+  { name: "한우안창살",         recommended: false },
+  { name: "한우치마살",         recommended: false },
+  { name: "한우새우등심",       recommended: false },
+  { name: "한우등심",           recommended: false },
+  { name: "한우꽃갈비살",       recommended: false },
+  { name: "한우살치살",         recommended: false },
+  { name: "한우치맛살",         recommended: false },
+  { name: "한우부채살",         recommended: false },
+  { name: "한우업진살",         recommended: false },
+  { name: "한우제비추리",       recommended: false },
+  { name: "한우갈비살",         recommended: false },
+  { name: "한우마늘양념구이",   recommended: true  },
+];
+
+const SIDE_ITEMS = [
+  "물밀면",
+  "비빔밀면",
+  "한우된장찌개",
+  "유기농계란찜",
+  "친환경공기밥",
 ];
 
 export default async function MenuPage({
@@ -86,82 +77,80 @@ export default async function MenuPage({
 }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-
   const locale = lang as Locale;
-  const dict = await getDictionary(locale);
-  const m = dict.menuPage;
 
   return (
-    <main className="min-h-dvh bg-charcoal pb-16">
+    <main className="min-h-dvh bg-charcoal pb-24">
       <SiteNav lang={locale} />
-      {/* Header */}
-      <div className="pt-14 border-b border-gold/15 px-6 py-4">
-        <p className="font-serif text-lg font-bold text-cream tracking-wider">{m.title}</p>
-        <p className="font-sans text-[10px] text-gold/50 tracking-widest">{m.subtitle}</p>
-      </div>
 
-      {/* Intro */}
-      <div className="px-6 py-10 border-b border-gold/10">
-        <p className="font-sans text-sm leading-7 text-cream/55 max-w-md">
-          &ldquo;{m.quote}&rdquo;
-        </p>
-        <p className="font-serif text-sm text-gold/50 mt-3">{m.quoteAuthor}</p>
-      </div>
+      <div className="pt-14 max-w-lg mx-auto px-6">
 
-      {/* Menu Categories */}
-      <div className="px-6 pt-8 space-y-12 max-w-md mx-auto">
-        {MENU_CATEGORIES_KO.map((cat) => (
-          <div key={cat.catKey}>
-            <div className="flex items-baseline gap-3 mb-6">
-              <h2 className="font-serif text-xl font-bold text-gold tracking-wider">
-                {m[cat.catKey]}
-              </h2>
-              {cat.noteKey && (
-                <span className="font-sans text-[10px] text-cream/35 tracking-wide">
-                  {m[cat.noteKey]}
-                </span>
-              )}
-            </div>
-            <div className="space-y-0">
-              {cat.items.map((item) => {
-                const desc = locale === "ko" ? item.descKo : item.descEn;
-                return (
-                  <div key={item.name}
-                    className="flex items-start justify-between py-4 border-b border-gold/8 last:border-b-0">
-                    <div className="flex-1">
-                      <p className="font-serif text-base font-bold text-cream">{item.name}</p>
-                      {desc && (
-                        <p className="font-sans text-xs text-cream/40 mt-0.5 leading-5">{desc}</p>
-                      )}
-                    </div>
-                    <div className="ml-4 text-right shrink-0">
-                      <p className="font-sans text-xs text-gold/55">{m.price}</p>
-                      <p className="font-sans text-[10px] text-cream/25 mt-0.5">{item.unit}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+        {/* Header */}
+        <div className="py-10 border-b border-gold/10">
+          <p className="font-sans text-[10px] tracking-[0.45em] text-gold/45 mb-3">MENU</p>
+          <h1 className="font-serif text-3xl font-bold text-cream mb-1">단소상회 한우</h1>
+          <p className="font-sans text-xs text-gold/55 tracking-wide">전 부위 1++(9) 특상한우</p>
+        </div>
+
+        {/* SIGNATURE */}
+        <div className="py-10 border-b border-gold/10 text-center">
+          <p className="font-sans text-[10px] tracking-[0.5em] text-gold/40 mb-5">SIGNATURE</p>
+          <p className="font-serif text-2xl font-bold text-gold tracking-wide">
+            한우포갈비(안동식)
+          </p>
+        </div>
+
+        {/* Beef grid */}
+        <div className="py-10 border-b border-gold/10">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-5">
+            {BEEF_GRID.map((item) => (
+              <div key={item.name} className="flex items-center gap-1.5">
+                <p className="font-sans text-sm text-cream/80">{item.name}</p>
+                {item.recommended && (
+                  <span className="font-sans text-[9px] text-gold/60 border border-gold/30 px-1 py-0.5 leading-none">
+                    추천
+                  </span>
+                )}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+          <p className="font-sans text-[10px] text-cream/25 mt-8 leading-5">
+            매장 상황에 따라 제공 부위가 변동될 수 있습니다.
+          </p>
+        </div>
 
-      {/* Bottom note */}
-      <div className="px-6 mt-12 max-w-md mx-auto">
-        <p className="font-sans text-[11px] text-cream/25 leading-6 text-center">
-          {m.note1}<br />{m.note2}
-        </p>
+        {/* Side dishes */}
+        <div className="py-10 border-b border-gold/10">
+          <p className="font-sans text-[10px] tracking-[0.45em] text-gold/45 mb-6">SIDE</p>
+          <div className="space-y-4">
+            {SIDE_ITEMS.map((name) => (
+              <p key={name} className="font-sans text-sm text-cream/70">{name}</p>
+            ))}
+          </div>
+        </div>
+
+        {/* Note */}
+        <div className="py-8">
+          <p className="font-sans text-[11px] text-cream/25 leading-6">
+            콜키지 프리 운영 · 단체룸 6~30인 · 주차 150대
+          </p>
+        </div>
+
       </div>
 
       {/* Bottom Bar */}
       <div className="fixed bottom-0 left-0 right-0 flex border-t border-gold/20 bg-charcoal/95 backdrop-blur-sm">
-        <Link href={`/${locale}/danso`}
-          className="flex-1 py-4 font-sans text-sm font-bold tracking-[0.3em] text-charcoal bg-gold text-center hover:bg-gold/90 transition-colors">
-          {m.reserve}
+        <Link
+          href={`/${locale}/danso`}
+          className="flex-1 py-4 font-sans text-sm font-bold tracking-[0.3em] text-charcoal bg-gold text-center hover:bg-gold/90 transition-colors"
+        >
+          예약하기
         </Link>
-        <a href="tel:0507-1443-2080"
-          className="flex-1 py-4 font-sans text-sm font-bold tracking-[0.3em] text-gold text-center border-l border-gold/20 hover:bg-gold/5 transition-colors">
-          {m.call}
+        <a
+          href="tel:0507-1443-2080"
+          className="flex-1 py-4 font-sans text-sm font-bold tracking-[0.3em] text-gold text-center border-l border-gold/20 hover:bg-gold/5 transition-colors"
+        >
+          전화하기
         </a>
       </div>
     </main>
