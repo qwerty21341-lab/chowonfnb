@@ -839,8 +839,22 @@ function BottomBar({ onReservation }: { onReservation: () => void }) {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export function DansoPage({ dict, lang }: { dict: Dict; lang: Locale }) {
-  const [splashDone, setSplashDone] = useState(false);
+  const [splashDone, setSplashDone] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.location.hash === "#reservation";
+    }
+    return false;
+  });
   const reservationRef = useRef<HTMLElement>(null);
+
+  // #reservation 해시로 진입 시 예약 섹션으로 스크롤
+  useEffect(() => {
+    if (splashDone && window.location.hash === "#reservation") {
+      setTimeout(() => {
+        reservationRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  }, [splashDone]);
 
   const handleSplashComplete = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
