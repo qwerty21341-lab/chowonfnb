@@ -1,0 +1,18 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --yes
+        env:
+          VERCEL_ORG_ID: team_H4K8SJ3B8TjbbxudMAm1PKuU
+          VERCEL_PROJECT_ID: prj_5XzjxGlgQcmr6P05gmh1uci7mpnF
