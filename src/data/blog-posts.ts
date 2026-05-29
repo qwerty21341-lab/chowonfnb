@@ -12,7 +12,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "hanwoo-grade-1pp9",
     title: "한우 등급 완전 정복 — 1++(9)가 왜 특별한가",
-    date: "2026-05-20",
+    date: "2026-05-28",
     category: "한우 이야기",
     summary:
       "1++(9)는 한우 등급 체계에서 최고 등급입니다. 근내지방도 9번 판정이 무엇을 의미하는지, 왜 단소상회가 이 등급 이하는 취급하지 않는지 설명합니다.",
@@ -65,7 +65,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "hanwoo-pogatbi-signature",
     title: "한우포갈비(안동식) — 단소상회 시그니처를 소개합니다",
-    date: "2026-05-15",
+    date: "2026-05-26",
     category: "한우 이야기",
     summary: "단소상회의 시그니처 메뉴 한우포갈비(안동식). 안동식 갈비가 무엇인지, 왜 이 메뉴가 단소상회를 대표하는지 이야기합니다.",
     tags: ["한우포갈비", "안동식갈비", "포항한우", "갈비맛집", "단소상회시그니처"],
@@ -102,7 +102,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "charcoal-grill-difference",
     title: "참숯 직화구이의 진짜 차이 — 왜 가스불이 아닌 참숯인가",
-    date: "2026-05-10",
+    date: "2026-05-23",
     category: "한우 이야기",
     summary:
       "가스 불판과 참숯 직화는 고기를 굽는 온도, 향, 지방의 반응 방식이 다릅니다. 참숯이 한우를 어떻게 다르게 익히는지 알아봅니다.",
@@ -144,7 +144,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "hanwoo-cuts-guide",
     title: "안창살, 살치살, 새우등심 — 한우 부위 고르는 법",
-    date: "2026-05-08",
+    date: "2026-05-21",
     category: "한우 이야기",
     summary: "한우집에 가면 부위 이름이 많아서 헷갈리죠. 안창살, 살치살, 새우등심, 꽃갈비살의 차이를 정리했습니다.",
     tags: ["한우부위", "안창살", "살치살", "새우등심", "꽃갈비살"],
@@ -189,7 +189,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "pohang-hanwoo-guide",
     title: "포항 한우 맛집 고르는 법 — 좋은 한우집의 3가지 기준",
-    date: "2026-04-28",
+    date: "2026-05-18",
     category: "포항 맛집",
     summary:
       "포항에서 한우를 드시려는 분들을 위해, 좋은 한우 전문점을 고르는 3가지 기준을 소개합니다. 등급 투명성, 원산지, 화력 방식이 핵심입니다.",
@@ -233,7 +233,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "corkage-free-story",
     title: "콜키지 프리를 운영하는 이유",
-    date: "2026-04-22",
+    date: "2026-05-16",
     category: "단소상회 이야기",
     summary: "단소상회는 콜키지 비용을 받지 않습니다. 좋은 술을 직접 가져오셔도 됩니다. 왜 이 정책을 유지하는지 설명합니다.",
     tags: ["콜키지프리", "포항한우콜키지", "단소상회", "포항맛집", "한우콜키지"],
@@ -270,7 +270,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "group-dining-private-room",
     title: "단체 모임, 돌잔치, 회식 — 단독룸 이야기",
-    date: "2026-04-05",
+    date: "2026-05-13",
     category: "단소상회 이야기",
     summary: "단소상회는 6인부터 30인까지 수용 가능한 단독룸을 운영합니다. 가족 모임, 회식, 기념일 자리를 준비할 때 알아두면 좋은 것들.",
     tags: ["포항단체회식", "포항돌잔치", "포항가족모임", "단독룸", "포항회식장소"],
@@ -307,7 +307,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "pohang-milmyeon-hanwoo",
     title: "한우 다음엔 밀면 — 포항식 마무리",
-    date: "2026-03-18",
+    date: "2026-05-11",
     category: "포항 이야기",
     summary: "포항에는 냉면 대신 밀면이 있습니다. 한우구이 후 밀면으로 마무리하는 포항식 식사 방식을 소개합니다.",
     tags: ["포항밀면", "포항물밀면", "포항비빔밀면", "한우밀면", "포항식문화"],
