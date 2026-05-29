@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Serif_KR, Noto_Sans_KR, Playfair_Display } from "next/font/google";
+import { ThemeInit } from "@/components/ThemeInit";
 import "./globals.css";
 
 const serifKR = Noto_Serif_KR({
@@ -25,6 +26,10 @@ const playfairEn = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://chowonfnb.com"),
+  alternates: {
+    canonical: "https://chowonfnb.com/",
+  },
   title: "단소상회 — 포항 1++(9) 특상한우 참숯구이",
   description:
     "포항 이동 1++(9) 특상한우 참숯 직화구이 전문점. 포항 토박이 사장님이 직접 고르는 프리미엄 한우. 매일 17~23시.",
@@ -156,7 +161,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="bg-charcoal text-cream">{children}</body>
+      <body className="bg-charcoal text-cream">
+        <ThemeInit />
+        {children}
+      </body>
     </html>
   );
 }
