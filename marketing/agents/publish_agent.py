@@ -101,7 +101,7 @@ async def instagram_post_image(
     async with httpx.AsyncClient() as client:
         # Step 1: 컨테이너 생성
         r = await client.post(
-            f"https://graph.facebook.com/v21.0/{INSTAGRAM_BUSINESS_ID}/media",
+            f"https://graph.instagram.com/v21.0/{INSTAGRAM_BUSINESS_ID}/media",
             params={
                 "image_url": image_url,
                 "caption": caption,
@@ -118,9 +118,9 @@ async def instagram_post_image(
         print(f"  ⏳ 인스타 컨테이너 생성: {container_id}")
 
         # Step 2: 게시
-        await asyncio.sleep(3)  # 처리 대기
+        await asyncio.sleep(3)
         r2 = await client.post(
-            f"https://graph.facebook.com/v21.0/{INSTAGRAM_BUSINESS_ID}/media_publish",
+            f"https://graph.instagram.com/v21.0/{INSTAGRAM_BUSINESS_ID}/media_publish",
             params={
                 "creation_id": container_id,
                 "access_token": INSTAGRAM_ACCESS_TOKEN,
@@ -147,7 +147,7 @@ async def instagram_post_carousel(
         children = []
         for url in image_urls:
             r = await client.post(
-                f"https://graph.facebook.com/v21.0/{INSTAGRAM_BUSINESS_ID}/media",
+                f"https://graph.instagram.com/v21.0/{INSTAGRAM_BUSINESS_ID}/media",
                 params={"image_url": url, "is_carousel_item": "true",
                         "access_token": INSTAGRAM_ACCESS_TOKEN},
                 timeout=20,

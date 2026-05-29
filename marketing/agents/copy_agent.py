@@ -32,6 +32,21 @@ PLATFORM_PROMPTS = {
 - 해시태그: 20~25개 (포항맛집, 포항한우, 한우맛집, 특상한우 등 포함)
 - 총 길이: 150~250자 (해시태그 제외)
 """,
+    "threads": """
+스레드(Threads) 게시물 3개를 연속으로 작성하세요.
+각 게시물은 ---로 구분.
+- 1번: 임팩트 있는 핵심 한 줄 (이모지 포함, 60자 이내)
+- 2번: 감성적 묘사 or 스토리 (80자 이내)
+- 3번: 방문/예약 유도 (전화번호 0507-1443-2080 포함, 70자 이내)
+- 해시태그 없음 (스레드는 해시태그 불필요)
+""",
+    "naver_post": """
+네이버 플레이스 소식을 작성하세요.
+- 이모지 1~2개로 시작
+- 핵심 내용 + 방문/예약 유도
+- 100자 이내로 짧고 명확하게
+- 해시태그 3~5개 (끝에 붙이기)
+""",
     "google_business": """
 구글 비즈니스 프로필 게시물을 작성하세요.
 - 검색 유입을 고려한 자연스러운 키워드 포함
@@ -82,7 +97,10 @@ def generate(
         {"instagram": "...", "google_business": "...", ...}
     """
     platforms = platforms or list(PLATFORM_PROMPTS.keys())
-    client = anthropic.Anthropic(api_key=api_key or os.environ.get("ANTHROPIC_API_KEY"))
+    key = api_key or os.environ.get("ANTHROPIC_API_KEY", "")
+    if not key:
+        raise RuntimeError("ANTHROPIC_API_KEY 없음 — .env.local 확인")
+    client = anthropic.Anthropic(api_key=key)
     results = {}
 
     for platform in platforms:
@@ -104,7 +122,7 @@ def generate(
 결과만 출력하세요. 설명이나 인삿말 없이 카피 텍스트만."""
 
         message = client.messages.create(
-            model="claude-opus-4-5",
+            model="claude-sonnet-4-5",
             max_tokens=1024,
             messages=[{"role": "user", "content": prompt}]
         )

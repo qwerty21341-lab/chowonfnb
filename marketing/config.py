@@ -32,11 +32,11 @@ GSC_SITE_URL          = os.environ.get("GSC_SITE_URL", "https://chowonfnb.com")
 
 # ─── Stability AI ────────────────────────────────────────
 # https://platform.stability.ai/ 무료 가입 → API Keys → 키 생성
-STABILITY_API_KEY = os.environ.get("STABILITY_API_KEY", "")
+STABILITY_API_KEY = os.environ.get("STABILITY_API_KEY", "sk-SJ7I1kyVS0rbzy9PNXT32zM74RCv7XlzXX8IrO6SrnYzDxtE")
 
 # ─── Pexels ──────────────────────────────────────────────
 # https://www.pexels.com/api/ 무료 가입 → Your API Key
-PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY", "")
+PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY", "0sFk0csOUO0he9ritFYloZCRvQDB9Y9S5veG5KbCqQmqqGzdY8CVwFhX")
 
 # ─── Naver Developer (플레이스 모니터링) ─────────────────
 # https://developers.naver.com/apps/ 앱 생성 → 검색 API 신청 (무료)

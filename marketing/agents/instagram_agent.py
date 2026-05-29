@@ -18,7 +18,7 @@ except ImportError:
     INSTAGRAM_ACCESS_TOKEN = os.environ.get("INSTAGRAM_ACCESS_TOKEN", "")
     INSTAGRAM_BUSINESS_ID  = os.environ.get("INSTAGRAM_BUSINESS_ID", "")
 
-GRAPH_URL = "https://graph.facebook.com/v21.0"
+GRAPH_URL = "https://graph.instagram.com/v21.0"
 
 
 def _p(extra: dict = {}) -> dict:

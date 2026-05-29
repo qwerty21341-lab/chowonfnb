@@ -36,7 +36,7 @@ class _Handler(BaseHTTPRequestHandler):
         auth_code = params.get("code", [None])[0]
         self.send_response(200)
         self.end_headers()
-        self.wfile.write(b"<h2>인증 완료! 이 창을 닫아도 됩니다.</h2>")
+        self.wfile.write("<h2>인증 완료! 이 창을 닫아도 됩니다.</h2>".encode("utf-8"))
 
     def log_message(self, *args):
         pass

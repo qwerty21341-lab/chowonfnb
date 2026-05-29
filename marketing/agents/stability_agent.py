@@ -54,6 +54,7 @@ def generate_image(
             "output_format": "jpeg",
             "aspect_ratio": "1:1" if width == height else ("9:16" if height > width else "4:5"),
         },
+        files={"none": (None, b"")},  # forces multipart/form-data
         timeout=60,
     )
 

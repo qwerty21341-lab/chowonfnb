@@ -102,3 +102,46 @@ html {
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(0.6);
 }
+
+/* ── 투두리 테마 ── */
+@theme inline {
+  --color-primary: #c9a84c;
+  --color-primary-hover: #d4b560;
+  --color-primary-light: rgba(201,168,76,0.14);
+
+  --color-bg: #13120f;
+  --color-surface: #1a1917;
+  --color-sidebar: #0c0b09;
+  --color-sidebar-hover: #1a1917;
+  --color-sidebar-active: rgba(201,168,76,0.12);
+  --color-border: #2d2b27;
+
+  --color-text-primary: #e8dcc8;
+  --color-text-secondary: #9a8d7c;
+  --color-text-muted: #5a5048;
+  --color-text-inverse: #0c0b09;
+
+  --color-success: #4ade80;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #60a5fa;
+}
+
+[data-theme="dark"] {
+  --color-bg: #0c0b09;
+  --color-surface: #161410;
+  --color-border: #252320;
+  --color-text-primary: #e8dcc8;
+  --color-text-secondary: #9a8d7c;
+  --color-text-muted: #4a4438;
+}
+
+/* 날짜 인풋 네이티브 아이콘/스핀버튼 제거 (투두리) */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-clear-button { display: none; }
+
+/* Tooltip animation (투두리) */
+@keyframes tooltipIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}

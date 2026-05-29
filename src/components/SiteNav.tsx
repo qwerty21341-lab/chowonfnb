@@ -3,13 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-interface Props {
-  lang: string;
-}
-
-export function SiteNav({ lang }: Props) {
+export function SiteNav() {
   const pathname = usePathname();
-  const base = `/${lang}/danso`;
+  const base = "/danso";
 
   const links = [
     { href: `${base}/menu`,  label: "메뉴" },
